@@ -5,7 +5,7 @@ include "Backend/functions.php";
 <html>
 <head>
 	<title>SCRUD</title>
-	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="stylesheet" type="text/css" href="Style/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<!-- <link rel="icon" type="text" class="fas fa-database" /> -->
 </head>
