@@ -6,8 +6,8 @@ include "../header.php";
 </nav>
 <div class="d-flex flex-column-reverse">
 	<div class="container" style="margin-top: 2.5rem">
-		<table class="table table-hover border border-secondary p-2">
-			<thead>
+		<table class="table table-hover table-striped p-2">
+			<thead class="bg-primary">
 				<tr>
 					<?php 
 					$response = Columns();
@@ -40,14 +40,14 @@ include "../header.php";
 			</tbody>
 		</table>
 	</div>
-	<div class=" container p-2">
+	<div class="container p-2">
 	<?php 
 		if (isset($_GET["value"])) {
 			$response = Select($_GET["table"], $_GET["PrimaryKey"], $_GET["value"]);
 			$row = $response->fetch(); ?>
 			<form action="../Backend/edit.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" method="post">
 				<legend>Modifier</legend>
-				<fieldset class="form-inline">
+				<fieldset class="form-inline justify-content-between">
 					<?php foreach ($fields as $field) { 
 						if($field == $PrimaryKey)
 						{
@@ -55,37 +55,36 @@ include "../header.php";
 						}else{
 							$readonly = "";
 						} ?>
-						<div class="form-group justify-content-center">
+						<div class="form-group justify-content-center col-sm-3">
 							<label for="<?= $field ?>" class="col-form-label col-sm-12"><?= $field ?></label>
 							<input class="form-control" type="text" name="<?= $field ?>" id="<?= $field ?>" value="<?= $row[$field] ?>" <?= $readonly ?>>
 						</div>
 					<?php } ?>
 					<input type="submit" name="Valider" class="btn btn-primary align-self-end">
 				</fieldset>
-		</form>
-	<?php }else{ ?>
-		<form action="../Backend/add.php?table=<?= $_GET["table"] ?>" method="post">
-			<legend>Insérer</legend>
-			<fiedset class="form-inline justify-content-between">
-				<?php foreach ($fields as $field) { 
-					if($field == $PrimaryKey)
-						{
-							$readonly = "readonly=\"readonly\"";
-							$placeholder = "placeholder=\"Clé Primaire\"";
-						}else{
-							$readonly = "";
-							$placeholder = "";
-					}
-					?>
-					<div class="form-group justify-content-center col-sm-3">
+			</form>
+		<?php }else{ ?>
+			<form action="../Backend/add.php?table=<?= $_GET["table"] ?>" method="post">
+				<legend>Insérer</legend>
+				<fiedset class="form-inline justify-content-between">
+					<?php foreach ($fields as $field) { 
+						if($field == $PrimaryKey)
+							{
+								$readonly = "readonly=\"readonly\"";
+								$placeholder = "placeholder=\"Clé Primaire\"";
+							}else{
+								$readonly = "";
+								$placeholder = "";
+						} ?>
+						<div class="form-group justify-content-center col-sm-3">
 							<label for="<?= $field ?>" class="col-form-label col-sm-12"><?= $field ?></label>
-						<input class="form-control" type="text" name="<?= $field ?>" id="<?= $field ?>" <?= $readonly ?> <?= $placeholder ?>>
-					</div>
-				<?php } ?>
-				<input type="submit" name="Valider" class="btn btn-primary align-self-end">
-			</fieldset>
-		</form>
-	<?php } ?>
+							<input class="form-control" type="text" name="<?= $field ?>" id="<?= $field ?>" <?= $readonly ?> <?= $placeholder ?>>
+						</div>
+					<?php } ?>
+					<input type="submit" name="Valider" class="btn btn-primary align-self-end">
+				</fieldset>
+			</form>
+		<?php } ?>
 	</div>
 </div>
 
