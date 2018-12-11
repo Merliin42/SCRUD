@@ -1,83 +1,92 @@
 <?php
 include "../header.php";
 ?>
-<a href="database.php"><i class="fas fa-less-than"></i></a>
-<p>Entrées = <?= CountEntries($_GET["table"]) ?></p>
-</div>
-<div class="table">
-	<div class="head">
- 		<?php 
- 		$response = Columns();
- 		$fields = array();
+<span class="nav-item btn btn-secondary">Entrées = <?= CountEntries($_GET["table"]) ?></span>
+<a href="database.php" class="nav-link btn btn-secondary"><i class="fas fa-less-than"></i></a>
+</nav>
+<div class="d-flex flex-column-reverse">
+	<div class="container" style="margin-top: 2.5rem">
+		<table class="table table-hover border border-secondary p-2">
+			<thead>
+				<tr>
+					<?php 
+					$response = Columns();
+					$fields = array();
 
- 		while ($head = $response->fetch()) {
- 			if ($head["Key"] == "PRI") {
- 				$PrimaryKey = $head["Field"];
- 			}
-			$fields[] = $head["Field"];
- 			?>
- 			<span class="data"><?= $head["Field"] ?></span>
- 		<?php } ?>
- 		<span class="data">Modifier</span>
- 		<span class="data">Supprimer</span>
- 	</div>
+					while ($head = $response->fetch()) {
+						if ($head["Key"] == "PRI") {
+							$PrimaryKey = $head["Field"];
+						}
+						$fields[] = $head["Field"];
+						?>
+						<td scope="col"><?= $head["Field"] ?></td>
+					<?php } ?>
+					<td scope="col">Modifier</td>
+					<td scope="col">Supprimer</td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+				$response = Fields();
+				while ($row = $response->fetch()) { ?>
+					<tr scope="row">
+						<?php foreach ($fields as $field) { ?>
+							<td><?= $row[$field] ?></td>
+						<?php } ?>
+						<td><a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>"><i class="fas fa-pen"></i></a></td>
+						<td><a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="delete"><i class="fas fa-trash-alt"></i></a></td>
+					</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	</div>
+	<div class=" container p-2">
 	<?php 
-	$response = Fields();
-	while ($row = $response->fetch()) { ?>
-		<div class="row">
-			<?php foreach ($fields as $field) { ?>
-				<span class="data"><?= $row[$field] ?></span>
-			<?php } ?>
-			<a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="edit"><i class="fas fa-pen"></i></a>
-			<a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="delete"><i class="fas fa-trash-alt"></i></a>
-		</div>
-	<?php } ?>
-</div>
-<div class="edition">
-<?php 
-	if (isset($_GET["value"])) {
-		$response = Select($_GET["table"], $_GET["PrimaryKey"], $_GET["value"]);
-		$row = $response->fetch(); ?>
-		<form action="../Backend/edit.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" method="post" class="form">
-			<p class="describe">Modifier</p>
-			<div class="border">
+		if (isset($_GET["value"])) {
+			$response = Select($_GET["table"], $_GET["PrimaryKey"], $_GET["value"]);
+			$row = $response->fetch(); ?>
+			<form action="../Backend/edit.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" method="post">
+				<legend>Modifier</legend>
+				<fieldset class="form-inline">
+					<?php foreach ($fields as $field) { 
+						if($field == $PrimaryKey)
+						{
+							$readonly = "readonly=\"readonly\"";
+						}else{
+							$readonly = "";
+						} ?>
+						<div class="form-group justify-content-center">
+							<label for="<?= $field ?>" class="col-form-label col-sm-12"><?= $field ?></label>
+							<input class="form-control" type="text" name="<?= $field ?>" id="<?= $field ?>" value="<?= $row[$field] ?>" <?= $readonly ?>>
+						</div>
+					<?php } ?>
+					<input type="submit" name="Valider" class="btn btn-primary align-self-end">
+				</fieldset>
+		</form>
+	<?php }else{ ?>
+		<form action="../Backend/add.php?table=<?= $_GET["table"] ?>" method="post">
+			<legend>Insérer</legend>
+			<fiedset class="form-inline justify-content-between">
 				<?php foreach ($fields as $field) { 
 					if($field == $PrimaryKey)
-					{
-						$readonly = "readonly=\"readonly\"";
-					}else{
-						$readonly = "";
-					} ?>
-					<div class="entry">
-						<label><?= $field ?></label><input type="text" name="<?= $field ?>" value="<?= $row[$field] ?>" <?= $readonly ?>>
+						{
+							$readonly = "readonly=\"readonly\"";
+							$placeholder = "placeholder=\"Clé Primaire\"";
+						}else{
+							$readonly = "";
+							$placeholder = "";
+					}
+					?>
+					<div class="form-group justify-content-center col-sm-3">
+							<label for="<?= $field ?>" class="col-form-label col-sm-12"><?= $field ?></label>
+						<input class="form-control" type="text" name="<?= $field ?>" id="<?= $field ?>" <?= $readonly ?> <?= $placeholder ?>>
 					</div>
 				<?php } ?>
-				<input type="submit" name="Valider" class="submit">
-			</div>
-	</form>
-<?php }else{ ?>
-	<form action="../Backend/add.php?table=<?= $_GET["table"] ?>" method="post" class="form">
-		<p class="describe">Insérer</p>
-		<div class="border">
-			<?php foreach ($fields as $field) { 
-				if($field == $PrimaryKey)
-					{
-						$readonly = "readonly=\"readonly\"";
-						$placeholder = "placeholder=\"Clé Primaire\"";
-					}else{
-						$readonly = "";
-						$placeholder = "";
-				}
-				?>
-				<div class="entry">
-					<label><?= $field ?></label><input type="text" name="<?= $field ?>" <?= $readonly ?> <?= $placeholder ?>>
-				</div>
-			<?php } ?>
-		<input type="submit" name="Valider" class="submit">
-		</div>
-	</form>
-<?php } ?>
-<!-- <p>Entrées = <?= CountEntries($_GET["table"]) ?></p> -->
+				<input type="submit" name="Valider" class="btn btn-primary align-self-end">
+			</fieldset>
+		</form>
+	<?php } ?>
+	</div>
 </div>
 
 

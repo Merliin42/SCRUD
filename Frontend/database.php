@@ -3,19 +3,25 @@ include "../header.php";
 
 $response = Tables();
 ?>
-<a href="server.php"><i class="fas fa-less-than"></i></a>
-</div>
-<div class="table">
-	<div class="head">
-		<span class="data">Table</span>
-		<span class="data">Sélectionner</span>
-	</div>
-	<?php while ($row = $response->fetch()) { ?>
-		<div class="row">
-			<span class="data"><?= $row["Tables_in_".$_SESSION["dbname"]] ?></span>
-			<a href="table.php?table=<?= $row['Tables_in_'.$_SESSION["dbname"]] ?>" class="select"><i class="fas fa-greater-than"></i></a>
-		</div>
-	<?php } ?>
+<a href="server.php" class="nav-link btn btn-secondary"><i class="fas fa-less-than"></i></a>
+</nav>
+<div class="container" style="margin-top: 2.5rem">
+	<table class="table table-hover border border-secondary">
+		<thead>
+			<tr>
+				<th scope="col">Table</th>
+				<th scope="col">Sélectionner</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php while ($row = $response->fetch()) { ?>
+			<tr>
+				<th scope="row"><?= $row["Tables_in_".$_SESSION["dbname"]] ?></th>
+				<td><a href="table.php?table=<?= $row['Tables_in_'.$_SESSION["dbname"]] ?>"><i class="fas fa-greater-than text-primary"></i></a></td>
+			</tr>
+		<?php } ?>
+		</tbody>
+	</table>
 </div>
 
 <?php
