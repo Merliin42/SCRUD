@@ -33,8 +33,8 @@ include "../header.php";
 						<?php foreach ($fields as $field) { ?>
 							<td><?= $row[$field] ?></td>
 						<?php } ?>
-						<td><a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>"><i class="fas fa-pen"></i></a></td>
-						<td><a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="delete"><i class="fas fa-trash-alt"></i></a></td>
+						<td><a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>"><i class="fas fa-pen text-primary"></i></a></td>
+						<td><a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="delete"><i class="fas fa-trash-alt text-danger"></i></a></td>
 					</tr>
 				<?php } ?>
 			</tbody>
