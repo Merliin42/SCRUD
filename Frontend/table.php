@@ -6,7 +6,7 @@ include "../header.php";
 </nav>
 <div class="d-flex flex-column-reverse">
 	<div class="container" style="margin-top: 2.5rem">
-		<table class="table table-hover table-striped p-2">
+		<table class="table table-hover table-striped p-2 text-center">
 			<thead class="bg-primary">
 				<tr>
 					<?php 
@@ -33,15 +33,15 @@ include "../header.php";
 						<?php foreach ($fields as $field) { ?>
 							<td><?= $row[$field] ?></td>
 						<?php } ?>
-						<td><a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>"><i class="fas fa-pen text-primary"></i></a></td>
-						<td><a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="delete"><i class="fas fa-trash-alt text-danger"></i></a></td>
+						<td><a href="../Frontend/table.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="btn btn-secondary col-sm-12"><i class="fas fa-pen text-primary"></i></a></td>
+						<td><a href="../Backend/delete.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" class="btn btn-secondary col-sm-12"><i class="fas fa-trash-alt text-danger"></i></a></td>
 					</tr>
 				<?php } ?>
 			</tbody>
 		</table>
 	</div>
 	<div class="container p-2">
-	<?php 
+		<?php 
 		if (isset($_GET["value"])) {
 			$response = Select($_GET["table"], $_GET["PrimaryKey"], $_GET["value"]);
 			$row = $response->fetch(); ?>

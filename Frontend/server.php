@@ -5,7 +5,7 @@ $response = Bases();
 ?>
 </nav>
 <div class="container">
-	<table class="table table-hover table-striped" style="margin-top: 2.5rem">
+	<table class="table table-hover table-striped text-center" style="margin-top: 2.5rem">
 		<thead class="bg-primary">
 			<tr>
 				<th scope="col">Base</th>
@@ -16,7 +16,7 @@ $response = Bases();
 			<?php while ($row = $response->fetch()) { ?>
 				<tr>
 					<th scope="row"><?= $row["Database"] ?></td>
-					<td><a href="../Backend/usedb.php?dbname=<?= $row["Database"] ?>"><i class="fas fa-greater-than text-dark"></i></a></td>
+					<td><a href="../Backend/usedb.php?dbname=<?= $row["Database"] ?>" class="btn btn-secondary col-sm-12"><i class="fas fa-greater-than text-dark"></i></a></td>
 				</tr>
 			<?php } ?>
 		</tbody>
