@@ -47,7 +47,7 @@ include "../header.php";
 			$row = $response->fetch(); ?>
 			<form action="../Backend/edit.php?table=<?= $_GET["table"] ?>&PrimaryKey=<?= $PrimaryKey ?>&value=<?= $row[$PrimaryKey] ?>" method="post">
 				<legend>Modifier</legend>
-				<fieldset class="form-inline justify-content-between">
+				<div class="form-inline justify-content-between">
 					<?php foreach ($fields as $field) { 
 						if($field == $PrimaryKey)
 						{
@@ -61,12 +61,12 @@ include "../header.php";
 						</div>
 					<?php } ?>
 					<input type="submit" name="Valider" class="btn btn-primary align-self-end">
-				</fieldset>
+				</div>
 			</form>
 		<?php }else{ ?>
 			<form action="../Backend/add.php?table=<?= $_GET["table"] ?>" method="post">
 				<legend>Insérer</legend>
-				<fiedset class="form-inline justify-content-between">
+				<div class="form-inline justify-content-between">
 					<?php foreach ($fields as $field) { 
 						if($field == $PrimaryKey)
 							{
@@ -82,7 +82,7 @@ include "../header.php";
 						</div>
 					<?php } ?>
 					<input type="submit" name="Valider" class="btn btn-primary align-self-end">
-				</fieldset>
+				</div>
 			</form>
 		<?php } ?>
 	</div>
