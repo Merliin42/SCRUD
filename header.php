@@ -1,5 +1,6 @@
 <?php 
 include "Backend/functions.php";
+echo "Test bootstrap";
 ?>
 <!DOCTYPE html>
 <html>
