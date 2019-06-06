@@ -4,4 +4,7 @@
 	// $_SESSION["dbname"] = $_POST["dbname"];
 	$_SESSION["user"] = $_POST["connectUser"];
 	$_SESSION["password"] = $_POST["connectPassword"];
+
+	
+	
 	header("location: ../Frontend/server.php");

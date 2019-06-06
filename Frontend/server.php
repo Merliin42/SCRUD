@@ -1,10 +1,11 @@
 <?php 
 include "../header.php";
-
+Login();
 $response = Bases();
 ?>
 </nav>
 <div class="container">
+	<button type="button" class="btn btn-primary"><a href="logs.php">logs</a></button>
 	<table class="table table-hover table-striped text-center" style="margin-top: 2.5rem">
 		<thead class="bg-primary">
 			<tr>

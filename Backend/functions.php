@@ -10,6 +10,32 @@ function Bases()
 	return $response;
 }
 
+function Login()
+{
+	$bdd = new PDO('mysql:host=localhost;charset=utf8', 'root', '');
+	$bdd->exec('USE Loginlog');
+	$_SESSION["login_date"] = $bdd->query('SELECT NOW()')->fetch()["NOW()"];
+	$bdd->query('INSERT INTO logs (login, date_in) VALUES (\''.$_SESSION["user"].'\', \''.$_SESSION["login_date"].'\')');
+}
+
+function Logout()
+{
+	$bdd = new PDO('mysql:host=localhost;charset=utf8', 'root', '');
+	$bdd->exec('USE Loginlog');
+	$bdd->query('UPDATE logs
+				SET date_out = NOW()
+				WHERE login = \''.$_SESSION["user"].'\'
+				AND date_in = \''.$_SESSION["login_date"].'\'');
+}
+
+function Logs()
+{
+	$bdd = new PDO('mysql:host=localhost;charset=utf8', 'root', '');
+	$bdd->exec('USE Loginlog');
+	$response = $bdd->query('SELECT * FROM logs');
+	return $response;
+}
+
 function Usedb()
 //Execute use database
 {
