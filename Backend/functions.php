@@ -10,6 +10,22 @@ function Bases()
 	return $response;
 }
 
+function CreateDB($name)
+//Create a database
+{
+	global $bdd;
+	$bdd->exec('CREATE DATABASE '.$name);
+	header("location: ../Frontend/server.php");
+}
+
+function DropDB($name)
+//Drop a database
+{
+	global $bdd;
+	$bdd->exec('DROP DATABASE '.$name);
+	header("location: ../Frontend/server.php");
+}
+
 function Usedb()
 //Execute use database
 {
@@ -121,4 +137,13 @@ function Edit($table, $primaryKey, $idvalue, $fields, $i)
 	$bdd->query($request);
 	// echo $request;
 	header("location: ../Frontend/table.php?table=".$_GET["table"]);
+}
+
+function Request($request)
+//Execute a request on the selected database
+{
+	global $bdd;
+	Usedb();
+	$response = $bdd->query($request);
+	return $response;
 }

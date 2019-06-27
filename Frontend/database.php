@@ -4,6 +4,7 @@ include "../header.php";
 $response = Tables();
 ?>
 <a href="server.php" class="nav-link btn btn-secondary"><i class="fas fa-less-than"></i></a>
+<a href="request.php" class="nav-link btn btn-secondary">Reqêter</a>
 </nav>
 <div class="container" style="margin-top: 2.5rem">
 	<table class="table table-hover table-striped text-center">
